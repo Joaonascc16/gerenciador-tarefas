@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerenciador de Tarefas</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <a class="pular" href="#quadro">Ir para o quadro de tarefas</a>
+
+  <div class="pagina">
+    <header class="topo">
+      <div>
+        <h1>Tarefas</h1>
+        <p class="resumo-texto" id="resumo-texto" aria-live="polite">Carregando…</p>
+      </div>
+      <button type="button" class="botao botao--primario" id="btn-nova">Nova tarefa</button>
+    </header>
+
+    <div class="progresso" id="progresso" role="img" aria-label="Carregando progresso">
+      <span class="progresso__parte progresso__parte--a-fazer" data-segmento="A_FAZER"></span>
+      <span class="progresso__parte progresso__parte--andamento" data-segmento="EM_ANDAMENTO"></span>
+      <span class="progresso__parte progresso__parte--concluida" data-segmento="CONCLUIDA"></span>
+    </div>
+
+    <section class="filtros" aria-label="Filtros">
+      <label class="campo-busca">
+        <span class="sr-only">Buscar tarefas</span>
+        <input type="search" id="busca" placeholder="Buscar por título ou descrição" autocomplete="off">
+      </label>
+      <label class="filtro">
+        <span>Prioridade</span>
+        <select id="filtro-prioridade">
+          <option value="">Todas</option>
+          <option value="ALTA">Alta</option>
+          <option value="MEDIA">Média</option>
+          <option value="BAIXA">Baixa</option>
+        </select>
+      </label>
+      <button type="button" class="botao botao--pequeno" id="btn-limpar" hidden>Limpar filtros</button>
+    </section>
+
+    <main class="quadro" id="quadro">
+      <section class="coluna" data-status="A_FAZER" aria-labelledby="titulo-a-fazer">
+        <header class="coluna__cab">
+          <h2 id="titulo-a-fazer">A fazer</h2>
+          <span class="contador" data-contador>0</span>
+        </header>
+        <ul class="lista" data-lista></ul>
+      </section>
+
+      <section class="coluna" data-status="EM_ANDAMENTO" aria-labelledby="titulo-em-andamento">
+        <header class="coluna__cab">
+          <h2 id="titulo-em-andamento">Em andamento</h2>
+          <span class="contador" data-contador>0</span>
+        </header>
+        <ul class="lista" data-lista></ul>
+      </section>
+
+      <section class="coluna" data-status="CONCLUIDA" aria-labelledby="titulo-concluida">
+        <header class="coluna__cab">
+          <h2 id="titulo-concluida">Concluída</h2>
+          <span class="contador" data-contador>0</span>
+        </header>
+        <ul class="lista" data-lista></ul>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="dialogo" aria-labelledby="dialogo-titulo">
+    <form class="form" id="form-tarefa">
+      <h2 id="dialogo-titulo">Nova tarefa</h2>
+
+      <label class="campo">
+        <span>Título</span>
+        <input type="text" id="campo-titulo" name="titulo" maxlength="100" required autocomplete="off" autofocus>
+      </label>
+
+      <label class="campo">
+        <span>Descrição <small>(opcional)</small></span>
+        <textarea id="campo-descricao" name="descricao" rows="4" maxlength="500"></textarea>
+        <small id="contador-descricao" class="campo__ajuda">0 de 500 caracteres</small>
+      </label>
+
+      <div class="linha-dupla">
+        <label class="campo">
+          <span>Prioridade</span>
+          <select id="campo-prioridade" name="prioridade">
+            <option value="ALTA">Alta</option>
+            <option value="MEDIA" selected>Média</option>
+            <option value="BAIXA">Baixa</option>
+          </select>
+        </label>
+        <label class="campo">
+          <span>Situação</span>
+          <select id="campo-status" name="status">
+            <option value="A_FAZER" selected>A fazer</option>
+            <option value="EM_ANDAMENTO">Em andamento</option>
+            <option value="CONCLUIDA">Concluída</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="campo">
+        <span>Prazo <small>(opcional)</small></span>
+        <input type="date" id="campo-prazo" name="prazo">
+      </label>
+
+      <p class="erro-form" id="erro-form" role="alert" hidden></p>
+
+      <div class="form__acoes">
+        <button type="button" class="botao" id="btn-cancelar">Cancelar</button>
+        <button type="submit" class="botao botao--primario" id="btn-salvar">Salvar tarefa</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="avisos" id="avisos" role="status" aria-live="polite"></div>
+
+  <script src="/js/app.js" defer></script>
+</body>
+</html>

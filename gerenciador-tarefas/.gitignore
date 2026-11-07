@@ -1,0 +1,6 @@
+out/
+out-test/
+target/
+dados/
+.idea/
+*.iml
